@@ -400,13 +400,13 @@ name = "org.wso2.is.notification.ApimOauthEventInterceptor"
 order = 1
 
 [event_listener.properties]
-{{- if and (.Values.kubernetes.gatewayAPI.controlPlane.enabled) (ne .Values.kubernetes.gatewayAPI.controlPlane.internalHostname "localhost") -}}
+{{- if and (.Values.kubernetes.gatewayAPI.controlPlane.enabled) (ne .Values.kubernetes.gatewayAPI.controlPlane.internalHostname "localhost") }}
 notification_endpoint = "https://{{ .Values.kubernetes.gatewayAPI.controlPlane.internalHostname }}:{{ add 9443 .Values.wso2.apim.portOffset }}/internal/data/v1/notify"
-{{- else if and (.Values.kubernetes.ingress.controlPlane.enabled) (ne .Values.kubernetes.ingress.controlPlane.internalHostname "localhost") -}}
+{{- else if and (.Values.kubernetes.ingress.controlPlane.enabled) (ne .Values.kubernetes.ingress.controlPlane.internalHostname "localhost") }}
 notification_endpoint = "https://{{ .Values.kubernetes.ingress.controlPlane.internalHostname }}:{{ add 9443 .Values.wso2.apim.portOffset }}/internal/data/v1/notify"
-{{- else -}}
+{{- else }}
 notification_endpoint = "https://localhost:${mgt.transport.https.port}/internal/data/v1/notify"
-{{- end -}}
+{{- end }}
 username = "${admin.username}"
 password = "${admin.password}"
 'header.X-WSO2-KEY-MANAGER' = "default"
